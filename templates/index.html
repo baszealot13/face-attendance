@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Time Attendance
+{% endblock %}
+
+{% block main %}
+<h1>Time Checking</h1>
+
+<div class="row">
+    <div class="col-sm-8">
+        <img src="{{ url_for('video_comparing') }}" class="img-fluid">
+    </div>
+    <div class="col-sm-4">
+        <iframe src="{{ url_for('watching_logs') }}" style="border: 0; width: 100%; height: 500px; overflow: auto;"></iframe>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Time Attendance
+{% endblock %}
+
+{% block main %}
+<h1>Face Register</h1>
+
+<div class="row">
+    <div class="col-sm-7">
+        <img src="{{ url_for('video_streaming') }}" class="img-fluid">
+    </div>
+    <div class="col-sm-5">
+        <div class="alert alert-primary" role="alert">
+            Please capture only your picture
+        </div>
+
+        <div class="alert alert-danger" role="alert" style="display: none">
+            Please, Enter your name
+        </div>
+
+        <form method="POST" action="{{ url_for('faceregister') }}">
+            <div class="form-group">
+                <label for="whoru">Who are you?</label>
+                <input type="text" name="whoru" id="whoru" class="form-control" autocomplete="off" autofocus>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-success" onclick="faceRegisSubmit()">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
