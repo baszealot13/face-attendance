@@ -153,7 +153,7 @@ def generate_comparing_frames():
                     face_id = known_face_id[best_match_index]
                     timecheck = datetime.now()
                     face_matched = True
-
+                
                 face_names.append(name)
                 
                 if face_matched == True:
@@ -161,14 +161,15 @@ def generate_comparing_frames():
                         tc_buffer = {}
 
                     if len(tc_buffer) > 0:
-                        bufftime = datetime.strptime(tc_buffer[face_id], dt_format)
-                        diff_minutes = (timecheck - bufftime).seconds/60
+                        if name in tc_buffer:
+                            bufftime = datetime.strptime(tc_buffer[name], dt_format)
+                            diff_minutes = (timecheck - bufftime).seconds/60
 
                     if diff_minutes >= time_interval:
                         db.cursor().execute(
                             "INSERT INTO time_check (face_id, timechecking) VALUES (%s, %s)", (face_id, timecheck))
                         db.commit()
-                        tc_buffer[face_id] = timecheck.strftime(dt_format)
+                        tc_buffer[name] = timecheck.strftime(dt_format)
                 
         process_this_frame = not process_this_frame
 
@@ -228,7 +229,6 @@ def index():
     sqlcursor.execute("SELECT id, name, face_code FROM faces")
     results = sqlcursor.fetchall()
     
-    print(f'results  {results}') 
     if len(results) == 0:
         return redirect('/faceregister')
     else:
