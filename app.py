@@ -253,6 +253,48 @@ async def faceregister():
     else:
         return render_template('faceregister.html')
 
+@app.route('/report', methods=["GET", "POST"])
+def report():
+    sqlcursor = db.cursor()
+    display = "SELECT name, timechecking FROM time_check INNER JOIN faces ON time_check.face_id=faces.id"
+    condition = f"{display} WHERE DATE(timechecking)=CURRENT_DATE()"
+    command = f"{condition} ORDER BY timechecking ASC"
+    tmpcondition = None
+
+    if request.method == "POST":
+        name = request.form.get('name')
+        date = request.form.get('date')
+        value = None
+
+        print(f"name = {name}")
+        print(f"date = {date}")
+
+        if name:
+            tmpcondition = "WHERE name=%(name)s"
+            value = ({"name": name})
+
+        if date:
+            if tmpcondition != None:
+                tmpcondition += "AND DATE(timechecking)=%(date)s"
+                value = ({"name":name, "date": date})
+            else:
+                tmpcondition = "WHERE DATE(timechecking)=%(date)s"
+                value = ({"date": date})
+
+        print(f"tmpcondition {tmpcondition}")
+        if tmpcondition != None:
+            condition = f"{display} {tmpcondition}"
+            command = f"{condition} ORDER BY timechecking ASC"
+            print(f"command {command}")
+            sqlcursor.execute(command, value)
+        else:
+            sqlcursor.execute(command)
+    else:
+        sqlcursor.execute(command)
+        
+    results = sqlcursor.fetchall()
+
+    return render_template("report.html", results=results)
 
 @app.route('/video_streaming')
 def video_streaming():
