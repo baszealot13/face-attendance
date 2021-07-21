@@ -1,6 +1,8 @@
 # FACE ATTENDANCE
 ## _Face Recognition + Time Attendance_
 
+Introduction [here](https://youtu.be/uZgDKjt4Mco)
+
 Face Attendance is face recognition and time attendance system by you can record a times you check in or out with walk through WebCam.
 
 How know it's you?, 1st you need to let this system to recognize your face by go to register menu look straight at the WebCam make sure see whole your face, enter your name click Register button after than you just walk through WebCam.
