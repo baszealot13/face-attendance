@@ -1,7 +1,9 @@
 # FACE ATTENDANCE
 ## _Face Recognition + Time Attendance_
 
-Introduction [here](https://youtu.be/uZgDKjt4Mco)
+Repository: [https://github.com/baszealot13/face-attendance](https://github.com/baszealot13/face-attendance)
+
+Introduction: [here](https://youtu.be/uZgDKjt4Mco)
 
 Face Attendance is face recognition and time attendance system by you can record a times you check in or out with walk through WebCam.
 
