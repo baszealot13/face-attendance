@@ -100,7 +100,6 @@ def generate_comparing_frames():
     results = sqlcursor.fetchall()
 
     tc_buffer = {}
-
     known_face_id = []
     known_face_names = []
     known_face_encodings = []
@@ -223,13 +222,16 @@ def watch_log_streaming():
         # await asyncio.sleep(3)(time_interval)
 
 
-@app.route('/', methods=["GET", "POST"])
-def index():
-    if request.method == "POST":
-        # camera.release()
-        # cv2.destroyAllWindows()
-        return redirect('/')
-    else:     
+@app.route('/')
+def index():   
+    sqlcursor = db.cursor()
+    sqlcursor.execute("SELECT id, name, face_code FROM faces")
+    results = sqlcursor.fetchall()
+    
+    print(f'results  {results}') 
+    if len(results) == 0:
+        return redirect('/faceregister')
+    else:
         return render_template('index.html')
 
 
